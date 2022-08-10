@@ -1,0 +1,10 @@
+extends layout.pug
+include mixins/_cards
+
+block content
+  .album.py-4
+    .container 
+      h3.mb-4 Subcategories
+      .row
+        each user in users
+          +cards(user)
