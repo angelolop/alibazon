@@ -18,7 +18,7 @@ app.use(Sentry.Handlers.tracingHandler()); //Handlers for sentry (error tracking
 
 app.set("view engine", "pug");
 
-app.get("/", async (req, res) => {   //API da OSF ainda vou implementar as rotas
+app.get("/", async (req, res) => {   //API from OSF, i am going to make the routes
   const query = await axios.get("https://backend-academy-osf.herokuapp.com/api/products/product_search", {
     params: {
       id: 25565189,
