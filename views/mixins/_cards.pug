@@ -1,15 +1,12 @@
 mixin cards(list)
   .col-md-8
   .container
-    .card.mb-4.shadow-sm
-      svg.bd-placeholder-img.card-img-top&attributes({"width": "100%"}, {"height": "225"}, {"focusable": "false"}, {"role": "img"})
+      .card.mb-4.shadow-sm
         title #{list.page_title} 
-        rect(width="100%" height="100%" fill="#55595c")
-        text(x="50%" y="50%" fill="#eceeef" dy=".3em") #{list.page_title} 
-      .card-body
-        .card-text #{list.page_description}
-        .card-text 
-        .card-text.mb-4  Suspendisse sed lorem facilisis, iaculis orci lobortis, cursus nisl.
-        .d-flex.justify-content-between.align-items-center
-          .btn-group
-            button.btn.btn-sm.btn-outline-secondary View products
+        img(src=list.image)
+        .card-body
+          .card-text #{list.page_description}
+          .card-text.mb-2  
+          .d-flex.justify-content-between.align-items-center
+            .btn-group
+              button.btn.btn-sm.btn-outline-secondary View products
