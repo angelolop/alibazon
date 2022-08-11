@@ -1,9 +1,9 @@
-mixin cards(user)
+mixin cards(collection)
   .col-md-8
   .container
     .card.mb-4.shadow-sm
       svg.bd-placeholder-img.card-img-top&attributes({"width": "100%"}, {"height": "225"}, {"focusable": "false"}, {"role": "img"})
-        title Pellentesque ut efficitur nibh, a molestie sapien. Vestibulum faucibus velit id odio laoreet mollis
+        title #{collection.name} #
         rect(width="100%" height="100%" fill="#55595c")
         text(x="50%" y="50%" fill="#eceeef" dy=".3em") Cras eget enim sem.
       .card-body

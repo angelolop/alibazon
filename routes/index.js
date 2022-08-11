@@ -18,13 +18,14 @@ app.use(Sentry.Handlers.tracingHandler()); //Handlers for sentry (error tracking
 
 app.set("view engine", "pug");
 
-app.get("/", async (req, res) => {   
-  const query = await axios.get("https://randomuser.me/api/?results=9");
-  res.render("index", { users: {results: [
-                                          {                       
-                                          name: "angelo", //Little JSON provided by me, i will change for the API from OSF
-                                          }]
-                                          }});
+app.get("/", async (req, res) => {   //API da OSF ainda vou implementar as rotas
+  const query = await axios.get("https://backend-academy-osf.herokuapp.com/api/products/product_search", {
+    params: {
+      id: 25565189,
+      secretKey: "$2a$08$p3my8MGizWp3L8f6sn0PCO2c4mLv.mewFcpcfy8pGxHFi0iT4cUX."
+    }
+  })
+  res.render("index", console.dir(query));
 });
 
 app.use(Sentry.Handlers.errorHandler()); //error handler necessary for Sentry
