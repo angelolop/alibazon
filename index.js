@@ -20,8 +20,26 @@ app.use(express.static('images'));
 
 app.set("view engine", "pug");
 
-app.get("/", async (req, res) => {   //API from OSF, i am going to make the routes
+app.get("/", async (req, res) => {   //Route home, for categories
   const query = await axios.get("https://backend-academy-osf.herokuapp.com/api/categories", {
+    params: {
+      secretKey: secretKey
+    }
+  })
+  res.render("index", { lists: query.data });
+});
+
+app.get("/subcategory", async (req, res) => {   //Route for subcategories
+  const query = await axios.get("https://backend-academy-osf.herokuapp.com/api/products/product_search?primary_category_id=womens-clothing-tops", {
+    params: {
+      secretKey: secretKey
+    }
+  })
+  res.render("index", { lists: query.data });
+});
+
+app.get("/product", async (req, res) => {   //Route for the especified product
+  const query = await axios.get("https://backend-academy-osf.herokuapp.com/api/products/product_search?id=25565189", {
     params: {
       secretKey: secretKey
     }
