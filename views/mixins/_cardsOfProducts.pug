@@ -1,0 +1,29 @@
+mixin cardsOfProducts(list)
+  .col-md-6
+  .container
+    .row
+      .col
+        .card.mb-4.shadow-sm
+          title #{list.name} 
+          img(src=list.image_groups.images)
+          .card-body
+            .card-text #{list.page_description}
+            .card-text.mb-2  
+            .d-flex.justify-content-between.align-items-center
+              .btn-group
+                button.btn.btn-sm.btn-outline-secondary
+                  a(href=list.id) View products
+      .col 
+        .card.mb-4.shadow-sm
+          title #{list.page_title} 
+          img(src=list.image_groups.images)
+          .card-body
+            .card-text #{list.page_description}
+            .card-text.mb-2  
+            .d-flex.justify-content-between.align-items-center
+              .btn-group
+                button.btn.btn-sm.btn-outline-secondary
+                  a(href=list.id) View products
+
+
+

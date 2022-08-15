@@ -1,0 +1,10 @@
+extends layout.pug
+include mixins/_cardsOfProducts
+
+block content
+  .album.py-4
+    .container 
+      h3.mb-4 Products
+      .row
+        each list in cardsOfProducts 
+          +cardsOfProducts(list)
