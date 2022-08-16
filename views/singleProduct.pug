@@ -1,12 +1,12 @@
 extends layout.pug
 block content
-  .col-md-8
   .container
-    .card.mb-4.shadow-sm
-    .card-body
-      .col-sm-6.col-md-6.col-xs-6
-        img(src= "products/large/PG.10228341.JJZ01XX.PZ.jpg")
-      .col-sm-6.col-md-6.col-xl-6
-        h3 Hello World
-        p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed hendrerit adipiscing blandit. Aliquam placerat, velit a fermentum fermentum, mi felis vehicula justo, a dapibus quam augue non massa.
-      
+    .row
+      .col-sm.mb-5.mt-3
+        img.pull-left(src="../products/large/PG.10228341.JJZ01XX.PZ.jpg")
+      .media-body.d-flex-align-items-start-flex-column-bd-highlight.mt-2
+        h5 Name of the product
+        p Product description
+        .bd-highlight
+          p Price: 
+          a.btn.btn-dark.mt-2(href="") Buy

@@ -1,25 +1,15 @@
-mixin cardsOfProducts(list)
-  .col-md-6
+mixin cardsOfProducts(list)   
   .container
     .row
-      .col
-        .card.mb-4.shadow-sm
-          title #{list.name} 
-          img(src= "../" + list.image_groups[0].images[0].link)
-          .card-body
-            .card-text #{list.page_description}
-            .card-text.mb-2  
-            .d-flex.justify-content-between.align-items-center
-              a.btn.btn-dark.mt-2(href=list.id) View products
-      .col 
-        .card.mb-4.shadow-sm
-          title #{list.page_title} 
-          img(src="../" + list.image_groups[0].images[0].link)
-          .card-body
-            .card-text #{list.page_description}
-            .card-text.mb-2  
-            .d-flex.justify-content-between.align-items-center
-              a.btn.btn-dark.mt-2(href=list.id) View products
+      .col-sm.mb-5
+        h5 #{list.page_title}
+        img.pull-left(src="../" + list.image_groups[0].images[0].link)
+      .media-body.mt-4.d-flex-align-items-start-flex-column-bd-highlight
+        p #{list.page_description}
+        .bd-highlight
+          p Price: #{list.price}
+          a.btn.btn-dark.mt-2(href=list.id) View product
+        
 
 
 

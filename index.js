@@ -29,16 +29,30 @@ app.get("/category/:id", async (req, res) => {
       secretKey: secretKey
     }
   })
+  if (id.length > 18 || id === "womens-outfits") {
+    let id = req.params.id;
+    res.redirect("/products/" + id);
+  }
   res.render("categories", { cardsOfCategories: query.data, jumbotron: true});
 }); 
 
-app.get("/products", async (req, res) => {   //Route for the especified product
-  const query = await axios.get("https://backend-academy-osf.herokuapp.com/api/products/product_search?page=1&primary_category_id=womens-clothing-tops", {
+app.get("/products/:id", async (req, res) => {
+  let identification = req.params.id;   //Route for the especified product
+  const query = await axios.get("https://backend-academy-osf.herokuapp.com/api/products/product_search?page=1&primary_category_id=" + identification, {
     params: {
       secretKey: secretKey
     }
   });
   res.render("products", { cardsOfProducts: query.data, jumbotron: false});
+});
+
+app.get("/product", async (req, res) => {  //Route for the especified product
+  const query = await axios.get("https://backend-academy-osf.herokuapp.com/api/products/product_search?id=25589048", {
+    params: {
+      secretKey: secretKey
+    }
+  });
+  res.render("singleProduct", { cardsOfProducts: query.data, jumbotron: false});
 });
 
 app.use(Sentry.Handlers.errorHandler()); //error handler necessary for Sentry
