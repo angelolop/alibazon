@@ -22,7 +22,7 @@ app.use(express.json());
 
 app.set("view engine", "pug");
 
-app.get("/gender/:id", async (req, res) => { 
+app.get("/category/:id", async (req, res) => { 
   let id = req.params.id;  //Route home, for categories
   const query = await axios.get(apiCategory + id, {// Put men or women depending on the request
     params: {
@@ -32,7 +32,7 @@ app.get("/gender/:id", async (req, res) => {
   res.render("categories", { cardsOfCategories: query.data, jumbotron: true});
 }); 
 
-app.get("/", async (req, res) => {   //Route for the especified product
+app.get("/products", async (req, res) => {   //Route for the especified product
   const query = await axios.get("https://backend-academy-osf.herokuapp.com/api/products/product_search?page=1&primary_category_id=womens-clothing-tops", {
     params: {
       secretKey: secretKey
