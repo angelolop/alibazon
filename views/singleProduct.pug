@@ -3,10 +3,10 @@ block content
   .container
     .row
       .col-sm.mb-5.mt-3
-        img.pull-left(src="../products/large/PG.10228341.JJZ01XX.PZ.jpg")
+        img.pull-left(src="../" + product[0].image_groups[0].images[0].link)
       .media-body.d-flex-align-items-start-flex-column-bd-highlight.mt-2
-        h5 Name of the product
-        p Product description
+        h5 #{product[0].name}
+        p #{product[0].short_description}
         .bd-highlight
-          p Price: 
+          p Price: #{product[0].price} 
           a.btn.btn-dark.mt-2(href="") Buy

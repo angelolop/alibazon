@@ -46,13 +46,14 @@ app.get("/products/:id", async (req, res) => {
   res.render("products", { cardsOfProducts: query.data, jumbotron: false});
 });
 
-app.get("/product", async (req, res) => {  //Route for the especified product
-  const query = await axios.get("https://backend-academy-osf.herokuapp.com/api/products/product_search?id=25589048", {
+app.get("/product/:id", async (req, res) => { 
+  let id = req.params.id;
+  const query = await axios.get("https://backend-academy-osf.herokuapp.com/api/products/product_search?id=" + id, {
     params: {
       secretKey: secretKey
     }
   });
-  res.render("singleProduct", { cardsOfProducts: query.data, jumbotron: false});
+  res.render("singleProduct", { product: query.data, jumbotron: false});
 });
 
 app.use(Sentry.Handlers.errorHandler()); //error handler necessary for Sentry

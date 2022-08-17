@@ -2,13 +2,13 @@ mixin cardsOfProducts(list)
   .container
     .row
       .col-sm.mb-5
-        h5 #{list.page_title}
+        h5 #{list.name}
         img.pull-left(src="../" + list.image_groups[0].images[0].link)
       .media-body.mt-4.d-flex-align-items-start-flex-column-bd-highlight
-        p #{list.page_description}
+        p #{list.short_description}
         .bd-highlight
           p Price: #{list.price}
-          a.btn.btn-dark.mt-2(href=list.id) View product
+          a.btn.btn-dark.mt-2(href="/product/" + list.id) View product
         
 
 
