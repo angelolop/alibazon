@@ -10,9 +10,14 @@ nav.navbar.navbar-expand-lg
 nav(aria-label='breadcrumb')
   .container
     ol.breadcrumb
-      li.breadcrumb-item Home
-      li.breadcrumb-item Subcategories
-      li.breadcrumb-item Product
+      a.li.breadcrumb-item(href = "/") Home
+      if (cardsOfProducts)
+        li.breadcrumb-item #{cardsOfProducts[0].primary_category_id}
+      else if (cardsOfCategories)
+        li.breadcrumb-item #{cardsOfCategories[0].parent_category_id}
+      else 
+        li.breadcrumb-item #{product[0].name}
+      li.breadcrumb-item
 
       
       
