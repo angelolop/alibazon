@@ -1,15 +1,15 @@
-mixin cardsOfProducts(list)   
-  .container
+mixin cardsOfProducts(list)
+  .mx-auto.mb-5(style='width:540px')
     .row
-      .col-sm.mb-5
-        h5 #{list.name}
-        img.pull-left(src="../" + list.image_groups[0].images[0].link)
-      .media-body.mt-4.d-flex-align-items-start-flex-column-bd-highlight
-        p #{list.short_description}
-        .bd-highlight
-          p Price: #{list.price}
-          a.btn.btn-dark.mt-2(href="/product/" + list.id) View product
+      .col-sm-5
+        h5.card-title.d-flex.justify-content-center #{list.name}
+        img.card-img.card.border-dark(src="../" + list.image_groups[0].images[0].link alt='Card image' style='width:200px')
+      .col-sm-7.mt-5
+        .body-right
+          p #{list.short_description}
+        .d-flex.justify-content-between.mt-5
+          p Price: $#{list.price}
+          a.btn.btn-dark(href="/product/" + list.id) View product
+      
         
-
-
 
