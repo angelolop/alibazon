@@ -9,8 +9,8 @@ block content
           .body-right-text-left
           h5.card-title #{product[0].name}
           p.card-text #{product[0].short_description}
-          .mt-4.d-flex.justify-content-between.align-items-end
-            a.btn.btn-dark(href="/product/") Buy now
-            p.mark Price: #{product[0].price}
+          .mt-2.align-items-center.d-flex
+            a.btn.btn-dark.rounded-pill(href="/product/") Buy now
+            p.mark.ml-5.mt-3 Price: $#{product[0].price}
             
             
