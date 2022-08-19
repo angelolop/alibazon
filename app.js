@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const Sentry = require('@sentry/node'); // Error tracking mandatory, observed in topic 4.8 - Error Tracking, in the learning hub 
 const Tracing = require('@sentry/tracing'); // Tracing required for sentry 
-const port = process.env.PORT;
 
 Sentry.init({                 // code required for sentry (error tracking)
   dsn: "https://df3e3800fa8648b3bfc0c2e2bf19b72a@o1354822.ingest.sentry.io/6638753",  
@@ -26,7 +25,6 @@ app.use(routes);
 
 app.use(Sentry.Handlers.errorHandler()); //error handler necessary for Sentry
 
-if (port == null || port == "") {
-  port = 8000;
-}
-app.listen(port);
+app.listen(3000, () => {
+  console.log(`Listening on port 3000...`);
+});
