@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const Sentry = require('@sentry/node'); // Error tracking mandatory, observed in topic 4.8 - Error Tracking, in the learning hub 
 const Tracing = require('@sentry/tracing'); // Tracing required for sentry 
+const bodyParser = require("body-parser");
 
 Sentry.init({                 // code required for sentry (error tracking)
     dsn: "https://df3e3800fa8648b3bfc0c2e2bf19b72a@o1354822.ingest.sentry.io/6638753",  
@@ -16,6 +17,8 @@ app.use(Sentry.Handlers.requestHandler()); //Handlers for sentry (error tracking
 app.use(Sentry.Handlers.tracingHandler()); //Handlers for sentry (error tracking)
 app.use(express.static('public'));
 app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.set("view engine", "pug");
 
@@ -28,3 +31,5 @@ app.use(Sentry.Handlers.errorHandler()); //error handler necessary for Sentry
 app.listen(process.env.PORT || 3000, () => {
     console.log(`Listening on port 3000...`);
 });
+
+module.exports = app;

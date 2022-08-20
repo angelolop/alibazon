@@ -13,17 +13,17 @@ router.get("/category/:id", async (req, res) => {
     const query = await axios.get(api + 'categories/parent/' + id, {// Put men or women depending on the request
     params: {
         secretKey: secretKey
-    }
-    })
+        }
+    });
     const teste = await axios.get(api + 'categories/' + id, {// Put men or women depending on the request
     params: {
         secretKey: secretKey
-    }   
-    })
+        }   
+    });
     if (id.length > 18 || id === "womens-outfits") {
-    let id = req.params.id;
-    res.redirect("/products/" + id);
-    }
+        let id = req.params.id;
+        res.redirect("/products/" + id);
+    };
     res.render("categories", { cardsOfCategories: query.data, jumbotron: true, jumbotronDescription: teste.data});
 }); 
 
