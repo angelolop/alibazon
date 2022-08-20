@@ -1,15 +1,12 @@
 mixin cardsOfProducts(list)
-  .mx-auto.mb-5(style='width:540px')
-    .row
-      .col-sm-5
-        h5.card-title.d-flex.justify-content-center #{list.name}
-        img.card-img.card.border-dark(src="../" + list.image_groups[0].images[0].link alt='Card image' style='width:200px')
-      .col-sm-7.mt-5
-        .body-right
-          p #{list.short_description}
-        .d-flex.justify-content-between.mt-5
-          p Price: $#{list.price}
-          a.btn.btn-dark.mb-4.rounded-pill(href="/product/" + list.id) More info
-      
-        
-
+    .mx-auto.mb-5
+        .row
+            .col-sm-5
+                h5.card-title.d-flex.justify-content-center #{list.name}
+                img.card-img.card.border-dark(src="../images/" + list.image_groups[0].images[0].link alt='Card image' style='width:200px')
+            .col-sm-7.mt-5
+                .body-right
+                    p #{list.short_description}
+                .d-flex.justify-content-between.mt-5
+                    p Price: $#{list.price}
+                    a.btn.btn-dark.mb-4.rounded-pill(href="/product/" + list.id) More info

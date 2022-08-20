@@ -2,10 +2,10 @@ extends layout.pug
 include mixins/_cardsOfCategories
 
 block content
-  .album.py-4
-    .container 
-      h3.mb-4 Subcategories
-      .row
-        each group in cardsOfCategories
-          +cardsOfCategories(group)
+    .album.py-4
+        .container 
+            h3.mb-4 Subcategories
+        .row
+            each group in cardsOfCategories
+                +cardsOfCategories(group)
         

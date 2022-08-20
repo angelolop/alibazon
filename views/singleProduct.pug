@@ -1,16 +1,16 @@
 extends layout.pug
 block content
-  .container
-    .mb-5
-      .row
-        .col-sm-5
-          img.card-img(src="../" + product[0].image_groups[0].images[0].link alt='Card image' style='width:360px')
-        .col-sm-7.mt-4
-          .body-right-text-left
-          h5.card-title #{product[0].name}
-          p.card-text #{product[0].short_description}
-          .mt-2.align-items-center.d-flex
-            a.btn.btn-dark.rounded-pill(href="/product/") Buy now
-            p.mark.ml-5.mt-3 Price: $#{product[0].price}
+    .container
+        .mb-5
+            .row
+                .col-sm-5
+                    img.card-img(src="../images/" + product[0].image_groups[0].images[0].link alt='Card image')
+                .col-sm-7.mt-4
+                    .body-right-text-left
+                    h5.card-title #{product[0].name}
+                    p.card-text #{product[0].short_description}
+                    .mt-2.align-items-center.d-flex
+                        a.btn.btn-dark.rounded-pill(href="/product/") Buy now
+                        p.mark.ml-5.mt-3 Price: $#{product[0].price}
             
             

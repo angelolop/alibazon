@@ -1,13 +1,13 @@
 mixin cardsOfCategories(group)
-  if (group.id != 'womens-clothing-feeling-red')
-    .col-md-8
-    .container
-      .card.mb-4.shadow-sm
-        title #{group.page_title}
-        if (group.image != 'categories/category_404.png') 
-          img(src="../" + group.image)
-        .card-body
-          .card-text #{group.page_description}
-          .card-text.mb-2  
-          .d-flex.justify-content-between.align-items-center
-            a.btn.btn-dark.mt-2(href=group.id) View products
+    if (group.id != 'womens-clothing-feeling-red')
+        .col-md-8
+        .container
+            .card.mb-4.shadow-sm
+                title #{group.page_title}
+                if (group.image != 'categories/category_404.png') 
+                    img(src="../images/" + group.image)
+                .card-body
+                    .card-text #{group.page_description}
+                    .card-text.mb-2  
+                    .d-flex.justify-content-between.align-items-center
+                        a.btn.btn-dark.mt-2(href=group.id) View products
