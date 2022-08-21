@@ -30,7 +30,10 @@ app.use(function (req, res, next) {
 });
 
 //mongodb connection
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/alibazon");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/alibazon", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 var db = mongoose.connection;
 // mongo error
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -40,7 +43,7 @@ app.use(Sentry.Handlers.tracingHandler()); //Handlers for sentry (error tracking
 app.use(express.static('public'));
 app.use(express.json());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true}))
+app.use(bodyParser.urlencoded({ extended: false}))
 
 app.set("view engine", "pug");
 
