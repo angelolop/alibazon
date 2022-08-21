@@ -3,6 +3,7 @@ const app = express();
 const Sentry = require('@sentry/node'); // Error tracking mandatory, observed in topic 4.8 - Error Tracking, in the learning hub 
 const Tracing = require('@sentry/tracing'); // Tracing required for sentry 
 const bodyParser = require("body-parser");
+const session = require('express-session');
 const mongoose = require('mongoose');
 
 Sentry.init({                 // code required for sentry (error tracking)
@@ -13,6 +14,13 @@ Sentry.init({                 // code required for sentry (error tracking)
     ],
     tracesSampleRate: 1.0,
 });
+
+// use sessions for tracking logins
+app.use(session({
+    secret: 'alibazon secret',
+    resave: true,
+    saveUninitialized: false
+  }))
 
 //mongodb connection
 mongoose.connect("mongodb://localhost:27017/alibazon");
