@@ -1,21 +1,22 @@
-header
-nav.navbar.navbar-expand-lg
-    .container
-        a.btn.btn-primary.rounded-pill.order-1.m-2(href="/category/womens") Womens
-        a.btn.btn-secondary.rounded-pill.order-1.m-2(href="/category/mens") Mens
-        h2 Alibazon
-        button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNavAltMarkup' aria-controls='navbarNavAltMarkup' aria-expanded='false' aria-label='Toggle navigation')
-            span.navbar-toggler-icon
-        #navbarNavAltMarkup.collapse.navbar-collapse
-nav(aria-label='breadcrumb')
-    .container
-        ol.breadcrumb
-            a.li.breadcrumb-item.disabled(href = "/") Home
-            if (cardsOfCategories)
-                li.breadcrumb-item #{cardsOfCategories[0].parent_category_id}
-            else if (cardsOfProducts)
-                li.breadcrumb-item #{cardsOfProducts[0].primary_category_id}
-            else
-                a.li.breadcrumb-item.disabled(href = "/products/" + product[0].primary_category_id) #{product[0].primary_category_id} 
-                li.breadcrumb-item #{product[0].name}
-            li.breadcrumb-item
+if(header != 'false')
+    header
+    nav.navbar.navbar-expand-lg
+        .container
+            a.btn.btn-primary.rounded-pill.order-1.m-2(href="/category/womens") Womens
+            a.btn.btn-secondary.rounded-pill.order-1.m-2(href="/category/mens") Mens
+            h2 Alibazon
+            button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNavAltMarkup' aria-controls='navbarNavAltMarkup' aria-expanded='false' aria-label='Toggle navigation')
+                span.navbar-toggler-icon
+            #navbarNavAltMarkup.collapse.navbar-collapse
+    nav(aria-label='breadcrumb')
+        .container
+            ol.breadcrumb
+                a.li.breadcrumb-item.disabled(href = "/") Home
+                if (cardsOfCategories)
+                    li.breadcrumb-item #{cardsOfCategories[0].parent_category_id}
+                else if (cardsOfProducts)
+                    li.breadcrumb-item #{cardsOfProducts[0].primary_category_id}
+                else
+                    a.li.breadcrumb-item.disabled(href = "/products/" + product[0].primary_category_id) #{product[0].primary_category_id} 
+                    li.breadcrumb-item #{product[0].name}
+                li.breadcrumb-item

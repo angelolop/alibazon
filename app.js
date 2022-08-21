@@ -3,6 +3,7 @@ const app = express();
 const Sentry = require('@sentry/node'); // Error tracking mandatory, observed in topic 4.8 - Error Tracking, in the learning hub 
 const Tracing = require('@sentry/tracing'); // Tracing required for sentry 
 const bodyParser = require("body-parser");
+const mongoose = require('mongoose');
 
 Sentry.init({                 // code required for sentry (error tracking)
     dsn: "https://df3e3800fa8648b3bfc0c2e2bf19b72a@o1354822.ingest.sentry.io/6638753",  
@@ -13,10 +14,18 @@ Sentry.init({                 // code required for sentry (error tracking)
     tracesSampleRate: 1.0,
 });
 
+//mongodb connection
+mongoose.connect("mongodb://localhost:27017/alibazon");
+var db = mongoose.connection;
+// mongo error
+db.on('error', console.error.bind(console, 'connection error:'));
+
 app.use(Sentry.Handlers.requestHandler()); //Handlers for sentry (error tracking)
 app.use(Sentry.Handlers.tracingHandler()); //Handlers for sentry (error tracking)
 app.use(express.static('public'));
 app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false}))
 
 app.set("view engine", "pug");
 
