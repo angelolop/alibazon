@@ -1,13 +1,19 @@
+header
+nav.navbar.navbar-expand-lg
+    .container
+        if !currentUser
+            a.btn.btn-info.rounded-pill.order-3.m-2(href="/login") Log in
+            a.btn.btn-info.rounded-pill.order-4.m-2(href="/register") Register
+        else
+            a.btn.btn-info.rounded-pill.order-3.m-2(href="/logout") Log out
+            a.btn.btn-info.rounded-pill.order-3.m-2(href="/profile") My profile
+        a.btn.btn-primary.rounded-pill.order-1.m-2(href="/category/womens") Womens
+        a.btn.btn-secondary.rounded-pill.order-2.m-2(href="/category/mens") Mens
+        h2 Alibazon
+        button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNavAltMarkup' aria-controls='navbarNavAltMarkup' aria-expanded='false' aria-label='Toggle navigation')
+            span.navbar-toggler-icon
+        #navbarNavAltMarkup.collapse.navbar-collapse
 if(header != 'false')
-    header
-    nav.navbar.navbar-expand-lg
-        .container
-            a.btn.btn-primary.rounded-pill.order-1.m-2(href="/category/womens") Womens
-            a.btn.btn-secondary.rounded-pill.order-1.m-2(href="/category/mens") Mens
-            h2 Alibazon
-            button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNavAltMarkup' aria-controls='navbarNavAltMarkup' aria-expanded='false' aria-label='Toggle navigation')
-                span.navbar-toggler-icon
-            #navbarNavAltMarkup.collapse.navbar-collapse
     nav(aria-label='breadcrumb')
         .container
             ol.breadcrumb

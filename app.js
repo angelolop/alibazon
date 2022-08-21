@@ -5,6 +5,7 @@ const Tracing = require('@sentry/tracing'); // Tracing required for sentry
 const bodyParser = require("body-parser");
 const session = require('express-session');
 const mongoose = require('mongoose');
+const routes = require('./routes');
 
 Sentry.init({                 // code required for sentry (error tracking)
     dsn: "https://df3e3800fa8648b3bfc0c2e2bf19b72a@o1354822.ingest.sentry.io/6638753",  
@@ -20,10 +21,16 @@ app.use(session({
     secret: 'alibazon secret',
     resave: true,
     saveUninitialized: false
-  }))
+}));
+
+//make user ID available in templates
+app.use(function (req, res, next) {
+    res.locals.currentUser = req.session.userId;
+    next();
+});
 
 //mongodb connection
-mongoose.connect("mongodb://localhost:27017/alibazon");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/alibazon");
 var db = mongoose.connection;
 // mongo error
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -36,8 +43,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}))
 
 app.set("view engine", "pug");
-
-const routes = require('./routes');
 
 app.use(routes);
 

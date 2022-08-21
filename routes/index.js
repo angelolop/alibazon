@@ -4,6 +4,7 @@ const secretKey = "$2a$08$p3my8MGizWp3L8f6sn0PCO2c4mLv.mewFcpcfy8pGxHFi0iT4cUX."
 const api = "https://backend-academy-osf.herokuapp.com/api/"
 const axios = require("axios");
 const User = require("../models/user");
+const middle = require ('../middleware');
 
 router.get("/", (req, res) => {
     res.redirect("/category/mens")
@@ -48,7 +49,7 @@ router.get("/product/:id", async (req, res) => {
     res.render("singleProduct", { product: query.data, jumbotron: false});
 });
 
-router.get('/register', function (req, res, next){
+router.get('/register', middle.loggedOut, function (req, res, next){
     return res.render('register', { title: 'Sing Up', header: 'false', jumbotron: false});
 });
 
@@ -74,6 +75,7 @@ router.post('/register', function (req, res, next){
                 if (error) {
                     return next (error);
                 } else {
+                    req.session.userId = user._id;
                     return res.redirect('/');
                 }
             });
@@ -82,6 +84,62 @@ router.post('/register', function (req, res, next){
             err.status = 400;
             return next (err);
         }
+});
+
+// GET /login
+router.get('/login', middle.loggedOut, function (req, res, next) {
+    return res.render ('login', {title: 'log in', header: 'false'});
+  });
+  
+// POST /login
+router.post('/login', function (req, res, next) {
+    if (req.body.email && req.body.password) {
+      User.authenticate(req.body.email, req.body.password, function (error, user){
+        if (error || !user) {
+          var err = new Error('Worng email or password.');
+          err.status = 401;
+          return next(err);
+        } else {
+          req.session.userId = user._id;
+          return res.redirect('/profile');
+        }
+      });
+    } else {
+        var err = new Error('Email and password are required.');
+        err.status = 401;
+        return next(err)
+    }
+})
+
+// GET /logout
+router.get('/logout', function(req, res, next) {
+    if (req.session) {
+        req.session.destroy (function (err) {
+            if (err) {
+                return next(err);
+            } else {
+                return res.redirect("/");
+            }
+        })
+    }
+})
+
+
+// GET /profile
+router.get('/profile', middle.requiresLogin, function(req, res, next) {
+    if (! req.session.userId ) {
+      var err = new Error("You are not authorized to view this page.");
+      err.status = 403;
+      return next(err);
+    }
+    User.findById(req.session.userId)
+        .exec(function (error, user) {
+          if (error) {
+            return next(error);
+          } else {
+            return res.render('profile', {name: user.name, header: 'false'});
+          }
+        });
 });
 
 module.exports = router;
