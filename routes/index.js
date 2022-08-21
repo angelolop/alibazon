@@ -32,7 +32,7 @@ router.get("/products/:id", async (req, res) => {
     const query = await axios.get(api + 'products/product_search?page=1&primary_category_id=' + identification, {
     params: {
         secretKey: secretKey
-    }
+        }
     });
     res.render("products", { cardsOfProducts: query.data, jumbotron: false});
 });
@@ -42,7 +42,7 @@ router.get("/product/:id", async (req, res) => {
     const query = await axios.get(api + "products/product_search?id=" + id, {
     params: {
         secretKey: secretKey
-    }
+        }
     });
     res.render("singleProduct", { product: query.data, jumbotron: false});
 });
