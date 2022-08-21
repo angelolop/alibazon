@@ -40,7 +40,7 @@ app.use(Sentry.Handlers.tracingHandler()); //Handlers for sentry (error tracking
 app.use(express.static('public'));
 app.use(express.json());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false}))
+app.use(bodyParser.urlencoded({ extended: true}))
 
 app.set("view engine", "pug");
 
