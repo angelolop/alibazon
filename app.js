@@ -6,7 +6,6 @@ const bodyParser = require("body-parser");
 const session = require('express-session');
 const mongoose = require('mongoose');
 const routes = require('./routes');
-const mongoCloud = 'mongodb+srv://alibazon:89212532@cluster0.juogexk.mongodb.net/?retryWrites=true&w=majority'
 
 Sentry.init({                 // code required for sentry (error tracking)
     dsn: "https://df3e3800fa8648b3bfc0c2e2bf19b72a@o1354822.ingest.sentry.io/6638753",  
@@ -31,7 +30,7 @@ app.use(function (req, res, next) {
 });
 
 //mongodb connection
-mongoose.connect(mongoCloud || "mongodb://localhost:27017/alibazon", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/alibazon", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
