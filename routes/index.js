@@ -3,8 +3,6 @@ const router = express.Router();
 const secretKey = "$2a$08$p3my8MGizWp3L8f6sn0PCO2c4mLv.mewFcpcfy8pGxHFi0iT4cUX."
 const api = "https://backend-academy-osf.herokuapp.com/api/"
 const axios = require("axios");
-const User = require("../models/user");
-const middle = require ('../middleware');
 
 router.get("/", (req, res) => {
     res.redirect("/category/mens")
@@ -49,11 +47,11 @@ router.get("/product/:id", async (req, res) => {
     res.render("singleProduct", { product: query.data, jumbotron: false});
 });
 
-router.get('/register', middle.loggedOut, function (req, res, next){
-    return res.render('register', { title: 'Sing Up', header: 'false', jumbotron: false});
+router.get('/register', function (req, res, next){
+    return res.render('register', {header: 'false', jumbotron: false});
 });
 
-router.post('/register', function (req, res, next){
+router.post('/register', async function (req, res, next){
     if (req.body.email &&
         req.body.name &&
         req.body.password &&
@@ -64,21 +62,18 @@ router.post('/register', function (req, res, next){
                 err.status = 400;
                 return next(err)
             }
-            //create object with form input
-            var userData = {
+            //use schema's "create" method to insert document into api
+            await axios.post(api + '/auth/signup', {
+                secretKey: secretKey,
                 email: req.body.email,
                 name: req.body.name, 
-                password: req.body.password
-            };
-            //use schema's "create" method to insert document into mongo
-            User.create(userData, function (error, user) {
-                if (error) {
-                    return next (error);
-                } else {
-                    req.session.userId = user._id;
-                    return res.redirect('/');
-                }
-            });
+                password: req.body.password  
+                })
+                .then(() => {
+                    res.redirect("/");
+                }).catch((err) => {
+                    console.error(err);
+                });
         } else {
             var err = new Error('All files required.');
             err.status = 400;
@@ -87,23 +82,24 @@ router.post('/register', function (req, res, next){
 });
 
 // GET /login
-router.get('/login', middle.loggedOut, function (req, res, next) {
-    return res.render ('login', {title: 'log in', header: 'false'});
-  });
+router.get('/login', function (req, res, next) {
+    return res.render ('login', { header: 'false'});
+});
   
 // POST /login
-router.post('/login', function (req, res, next) {
+router.post('/login', async function (req, res, next) {
     if (req.body.email && req.body.password) {
-      User.authenticate(req.body.email, req.body.password, function (error, user){
-        if (error || !user) {
-          var err = new Error('Worng email or password.');
-          err.status = 401;
-          return next(err);
-        } else {
-          req.session.userId = user._id;
-          return res.redirect('/profile');
-        }
-      });
+        await axios.post(api + '/auth/signin', {
+            secretKey: secretKey,
+            email: req.body.email,
+            password: req.body.password,
+            })
+            .then(() => {
+                req.session.userId = req.sessionID;
+                res.redirect('/');
+            }).catch((err) => {
+                console.error(err);
+            });
     } else {
         var err = new Error('Email and password are required.');
         err.status = 401;
@@ -111,7 +107,8 @@ router.post('/login', function (req, res, next) {
     }
 })
 
-// GET /logout
+// GET /logout 
+// 
 router.get('/logout', function(req, res, next) {
     if (req.session) {
         req.session.destroy (function (err) {
@@ -126,15 +123,16 @@ router.get('/logout', function(req, res, next) {
 
 
 // GET /profile
-router.get('/profile', middle.requiresLogin, function(req, res, next) {
-    User.findById(req.session.userId)
-        .exec(function (error, user) {
-          if (error) {
-            return next(error);
-          } else {
-            return res.render('profile', {name: user.name, header: 'false'});
-          }
-        });
-});
+router.get('/profile', function(req, res, next) {
+    if (! req.session.userId) {
+        let err = new Error("You are not authorized to view this page.");
+        err.status = 403;
+        return next(err);
+    } else {
+        res.render('profile', { header: 'false'})
+    }
+}); 
+
+    
 
 module.exports = router;
