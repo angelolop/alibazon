@@ -4,7 +4,9 @@ const Sentry = require('@sentry/node'); // Error tracking mandatory, observed in
 const Tracing = require('@sentry/tracing'); // Tracing required for sentry 
 const bodyParser = require("body-parser");
 const session = require('express-session');
-const routes = require('./routes');
+const routes1 = require('./routes/index');
+const routes2 = require('./routes/authentication');
+
 
 Sentry.init({                 // code required for sentry (error tracking)
     dsn: "https://df3e3800fa8648b3bfc0c2e2bf19b72a@o1354822.ingest.sentry.io/6638753",  
@@ -34,10 +36,10 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}))
+app.use(routes1);
+app.use(routes2);
 
 app.set("view engine", "pug");
-
-app.use(routes);
 
 app.use(Sentry.Handlers.errorHandler()); //error handler necessary for Sentry
 
