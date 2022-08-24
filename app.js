@@ -6,7 +6,12 @@ const bodyParser = require("body-parser");
 const session = require('express-session');
 const routes1 = require('./routes/index');
 const routes2 = require('./routes/authentication');
+const YAML = require ('yamljs')
+const swaggerJsDocs = YAML.load('./alibazon.yaml')
+const swaggerUI = require('swagger-ui-express');
 
+
+app.use('/alibazon-docs', swaggerUI.serve, swaggerUI.setup(swaggerJsDocs));
 
 Sentry.init({                 // code required for sentry (error tracking)
     dsn: "https://df3e3800fa8648b3bfc0c2e2bf19b72a@o1354822.ingest.sentry.io/6638753",  

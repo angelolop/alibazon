@@ -18,6 +18,13 @@ var routes1 = require('./routes/index');
 
 var routes2 = require('./routes/authentication');
 
+var YAML = require('yamljs');
+
+var swaggerJsDocs = YAML.load('./alibazon.yaml');
+
+var swaggerUI = require('swagger-ui-express');
+
+app.use('/alibazon-docs', swaggerUI.serve, swaggerUI.setup(swaggerJsDocs));
 Sentry.init({
   // code required for sentry (error tracking)
   dsn: "https://df3e3800fa8648b3bfc0c2e2bf19b72a@o1354822.ingest.sentry.io/6638753",

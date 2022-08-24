@@ -11,7 +11,7 @@ describe('Authentication', () =>
             chai.request(app)
             .post('/register')
             .send({
-                'email': 'mocha22@gmail.com',
+                'email': 'mocha30@gmail.com',
                 'name': 'mocha',
                 'password': '1234',
                 'confirmPassword': '1234'

@@ -1,0 +1,70 @@
+swagger: "2.0"
+info: 
+    title: Alibazon Ecommerce
+    description: This is my Ecommerce Application for OSF Academy
+    version: 1.0
+    contact: 
+        email: angelo.lop.alv@gmail.com 
+    license:
+        name: Apache 2.0
+        url: "http://apache.org/"
+    servers:
+        -url: "http://localhost:5000/"
+        description: This is my local server
+
+schemes: [http, https]
+
+paths:
+    /:
+        get:
+            summary: Returns the page of the men's category
+            description: Men's category of Alibazon
+            responses:
+                200:
+                    description: Success
+                    schema:
+                        content-type: text/html
+
+    /category/{id}:
+        get:
+            summary: Returns the page of the id selected
+            description: Category of clothes chosen from Alibazon
+            parameters:
+                -in: path
+                name: id
+                schema:
+                    type: string
+                description: The gender of the clothes chosen
+
+    /products/{id}:
+        get:
+            summary: Return the product catalog of the id selected
+            description: Catalog of products
+            parameters:
+                -in: path
+                name: id
+                schema: 
+                    type: string
+                description: The specified products of a chosen category
+
+    /product/{id}:
+        get:
+            summary: Return a unique product of the catalog of products chosen
+            description: A unique product
+            parameters:
+                -in: path
+                name: id
+                schema:
+                    type: string
+                description: The specified product of the products catalog
+
+    /register:
+        get:
+            summary: Returns the page of the register's page
+            description: Register's page
+            responses:
+                200:
+                    description: Success
+                    schema:
+                        content-type: text/html
+

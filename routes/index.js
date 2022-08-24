@@ -9,27 +9,25 @@ router.get("/", (req, res) => {
 });
 
 router.get("/category/:id", async (req, res) => { 
-    let id = req.params.id;  //Route home, for categories
-    const query = await axios.get(api + 'categories/parent/' + id, {// Put men or women depending on the request
+    let reqId = req.params.id
+    const query = await axios.get(api + 'categories/parent/' + reqId, {// Put men or women depending on the request
     params: {
         secretKey: secretKey
         }
     });
-    const teste = await axios.get(api + 'categories/' + id, {// Put men or women depending on the request
+    const jumbotronDescription = await axios.get(api + 'categories/' + reqId, { // breadcrumbs
     params: {
         secretKey: secretKey
         }   
     });
-    if (id.length > 18 || id === "womens-outfits") {
-        let id = req.params.id;
-        res.redirect("/products/" + id);
+    if (reqId.length > 18 || reqId === "womens-outfits") {
+        res.redirect("/products/" + reqId);
     };
-    res.render("categories", { cardsOfCategories: query.data, jumbotron: true, jumbotronDescription: teste.data});
+    res.render("categories", { cardsOfCategories: query.data, jumbotron: true, jumbotronDescription: jumbotronDescription.data});
 }); 
 
-router.get("/products/:id", async (req, res) => {
-    let identification = req.params.id;   //Route for the especified product
-    const query = await axios.get(api + 'products/product_search?page=1&primary_category_id=' + identification, {
+router.get("/products/:id", async (req, res) => {   //Route for the especified product
+    const query = await axios.get(api + 'products/product_search?page=1&primary_category_id=' + req.params.id, {
     params: {
         secretKey: secretKey
         }
@@ -38,8 +36,7 @@ router.get("/products/:id", async (req, res) => {
 });
 
 router.get("/product/:id", async (req, res) => { 
-    let id = req.params.id;
-    const query = await axios.get(api + "products/product_search?id=" + id, {
+    const query = await axios.get(api + "products/product_search?id=" + req.params.id, {
     params: {
         secretKey: secretKey
         }
