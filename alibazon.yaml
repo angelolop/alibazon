@@ -139,3 +139,6 @@ paths:
             responses:
                 200:
                     description: OK
+    /logout:
+        get:
+            summary:

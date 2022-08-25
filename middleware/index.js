@@ -1,4 +1,4 @@
-function requiresLogin (req, res, next) {
+exports.requiresLogin = function (req, res, next) {
     if (req.session && req.session.userId) {
         return next();
     } else {
@@ -7,5 +7,3 @@ function requiresLogin (req, res, next) {
         return next (err);
     }
 }
-
-module.exports.requiresLogin = requiresLogin;
