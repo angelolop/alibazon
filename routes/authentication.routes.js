@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const mid = require('../middleware');
-const authenticationController = require('../controllers/authencationController');
+const authenticationController = require('../controllers/authenticationController');
 
 router.get('/register', authenticationController.registerPage);
 
@@ -13,6 +12,6 @@ router.post('/login', authenticationController.loginPost)
 
 router.get('/logout', authenticationController.logout)
 
-router.get('/profile', mid.requiresLogin, authenticationController.profile); 
+router.get('/profile', authenticationController.profile); 
 
 module.exports = router;
