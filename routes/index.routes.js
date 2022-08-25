@@ -5,7 +5,7 @@ const api = "https://backend-academy-osf.herokuapp.com/api/"
 const axios = require("axios");
 
 router.get("/", (req, res) => {
-    res.redirect("/category/mens")
+    res.redirect("/category/womens")
 });
 
 router.get("/category/:id", async (req, res) => { 
@@ -32,7 +32,7 @@ router.get("/products/:id", async (req, res) => {   //Route for the especified p
         secretKey: secretKey
         }
     });
-    res.render("products", { cardsOfProducts: query.data, jumbotron: false});
+    res.render("products", { cardsOfProducts: query.data, cardsOfCategories: false, jumbotron: false});
 });
 
 router.get("/product/:id", async (req, res) => { 

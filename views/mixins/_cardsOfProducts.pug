@@ -3,7 +3,7 @@ mixin cardsOfProducts(list)
         .row
             .col-sm-5
                 h5.card-title.d-flex.justify-content-center #{list.name}
-                img.card-img.card.border-dark(src="../images/" + list.image_groups[0].images[0].link alt='Card image' style='width:200px')
+                img.img-thumbnail(src="../images/" + list.image_groups[0].images[0].link)
             .col-sm-7.mt-5
                 .body-right
                     p #{list.short_description}

@@ -4,9 +4,8 @@ block content
         .mb-5
             .row
                 .col-sm-5
-                    img.card-img(src="../images/" + product[0].image_groups[0].images[0].link alt='Card image')
+                    img(src="../images/" + product[0].image_groups[0].images[0].link)
                 .col-sm-7.mt-4
-                    .body-right-text-left
                     h5.card-title #{product[0].name}
                     p.card-text #{product[0].short_description}
                     .mt-2.align-items-center.d-flex

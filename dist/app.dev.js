@@ -14,9 +14,9 @@ var bodyParser = require("body-parser");
 
 var session = require('express-session');
 
-var routes1 = require('./routes/index');
+var routes1 = require('./routes/index.routes.js');
 
-var routes2 = require('./routes/authentication');
+var routes2 = require('./routes/authentication.routes.js');
 
 var YAML = require('yamljs');
 
@@ -24,7 +24,6 @@ var swaggerJsDocs = YAML.load('./alibazon.yaml');
 
 var swaggerUI = require('swagger-ui-express');
 
-app.use('/alibazon-docs', swaggerUI.serve, swaggerUI.setup(swaggerJsDocs));
 Sentry.init({
   // code required for sentry (error tracking)
   dsn: "https://df3e3800fa8648b3bfc0c2e2bf19b72a@o1354822.ingest.sentry.io/6638753",
@@ -34,7 +33,8 @@ Sentry.init({
     app: app
   })],
   tracesSampleRate: 1.0
-}); // use sessions for tracking logins
+});
+app.use('/alibazon-docs', swaggerUI.serve, swaggerUI.setup(swaggerJsDocs)); // use sessions for tracking logins
 
 app.use(session({
   secret: 'alibazon secret',
@@ -58,9 +58,9 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(routes1);
 app.use(routes2);
-app.set("view engine", "pug");
 app.use(Sentry.Handlers.errorHandler()); //error handler necessary for Sentry
 
+app.set("view engine", "pug");
 app.listen(process.env.PORT || 3000, function () {
   console.log("Listening on port 3000...");
 });

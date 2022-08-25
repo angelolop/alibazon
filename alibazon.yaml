@@ -9,7 +9,7 @@ info:
         name: Apache 2.0
         url: "http://apache.org/"
     servers:
-        -url: "http://localhost:5000/"
+        -url: "http://localhost:3000/"
         description: This is my local server
 
 schemes: [http, https]
@@ -25,38 +25,59 @@ paths:
                     schema:
                         content-type: text/html
 
-    /category/{id}:
+    /category/{categoryId}:
         get:
-            summary: Returns the page of the id selected
+            summary: Returns the page of the category selected
             description: Category of clothes chosen from Alibazon
             parameters:
-                -in: path
-                name: id
+              - name: categoryId
+                in: path
+                required: true
+                description: The category of the clothes chosen
                 schema:
                     type: string
-                description: The gender of the clothes chosen
+                    minimum: 1        
+            responses:
+                200:
+                    description: Success
+                    schema:
+                        content-type: text/html
 
-    /products/{id}:
+    /products/{subcategoryId}:
         get:
-            summary: Return the product catalog of the id selected
+            summary: Return the product catalog of the subcategory selected
             description: Catalog of products
             parameters:
-                -in: path
-                name: id
+              - name: subcategoryId
+                in: path
+                required: true
+                description: The specified products of a chosen category
                 schema: 
                     type: string
-                description: The specified products of a chosen category
+                    minimum: 1
+            responses:
+                200:
+                    description: Success
+                    schema:
+                        content-type: text/html
 
-    /product/{id}:
+    /product/{productId}:
         get:
             summary: Return a unique product of the catalog of products chosen
             description: A unique product
             parameters:
-                -in: path
-                name: id
+              - name: productId
+                in: path
+                required: true
+                description: The specified product of the products catalog
                 schema:
                     type: string
-                description: The specified product of the products catalog
+                    minimum: 1
+            responses:
+                200:
+                    description: Success
+                    schema:
+                        content-type: text/html
 
     /register:
         get:
@@ -68,3 +89,53 @@ paths:
                     schema:
                         content-type: text/html
 
+        post:
+            summary: Posting an user data
+            consumes:
+              - application/x-www-form-urlencoded
+            parameters:
+              - in: formData
+                name: name
+                type: string
+                description: User's name
+              - in: formData
+                name: email
+                type: string
+                description: User's email
+              - in: formData
+                name: password
+                type: string
+                description: User's password
+              - in: formData
+                name: confirmPassword
+                type: string
+                description: User's repeat password
+            responses:
+                200:
+                    description: OK
+
+    /login:
+        get:
+            summary: Returns the page of the login page
+            description: Login page of Alibazon
+            responses:
+                200:
+                    description: Success
+                    schema:
+                        content-type: text/html
+        post:
+            summary: Entering an user account
+            consumes:
+              - application/x-www-form-urlencoded
+            parameters:
+              - in: formData
+                name: email
+                type: string
+                description: User's email
+              - in: formData
+                name: password
+                type: string
+                description: User's password
+            responses:
+                200:
+                    description: OK

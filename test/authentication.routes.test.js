@@ -11,8 +11,8 @@ describe('Authentication', () =>
             chai.request(app)
             .post('/register')
             .send({
-                'email': 'mocha30@gmail.com',
                 'name': 'mocha',
+                'email': 'mocha35@gmail.com',
                 'password': '1234',
                 'confirmPassword': '1234'
             })
@@ -25,8 +25,8 @@ describe('Authentication', () =>
             chai.request(app)
             .post('/login')
             .send({
-                'email': 'mocha@gmail.com',
                 'name': 'mocha',
+                'email': 'mocha@gmail.com',
                 'password': '1234',
                 'confirmPassword': '1234'
             })
@@ -39,8 +39,8 @@ describe('Authentication', () =>
             chai.request(app)
             .get('/logout')
             .send({
-                'email': 'mocha@gmail.com',
                 'name': 'mocha',
+                'email': 'mocha@gmail.com',
                 'password': '1234',
                 'confirmPassword': '1234'
             })

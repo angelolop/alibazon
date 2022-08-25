@@ -3,9 +3,10 @@ const router = express.Router();
 const secretKey = "$2a$08$p3my8MGizWp3L8f6sn0PCO2c4mLv.mewFcpcfy8pGxHFi0iT4cUX."
 const api = "https://backend-academy-osf.herokuapp.com/api/"
 const axios = require("axios");
+const mid = require('../middleware');
 
 router.get('/register', function (req, res, next){
-    return res.render('register', {header: 'false', jumbotron: false});
+    return res.render('register', {header: false, jumbotron: false});
 });
 
 router.post('/register', async function (req, res, next){
@@ -40,7 +41,7 @@ router.post('/register', async function (req, res, next){
 
 // GET /login
 router.get('/login', function (req, res, next) {
-    return res.render ('login', { header: 'false'});
+    return res.render ('login', { header: false});
 });
   
 // POST /login
@@ -78,13 +79,11 @@ router.get('/logout', function(req, res, next) {
 })
 
 // GET /profile
-router.get('/profile', function(req, res, next) {
-    if (! req.session.userId) {
-        let err = new Error("You are not authorized to view this page.");
-        err.status = 403;
-        return next(err);
+router.get('/profile', mid.requiresLogin, function(req, res, next) {
+    if (error) {
+        return next (error)
     } else {
-        res.render('profile', { header: 'false'})
+        res.render('profile', { header: false})
     }
 }); 
 

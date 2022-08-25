@@ -13,16 +13,16 @@ nav.navbar.navbar-expand-lg
         button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNavAltMarkup' aria-controls='navbarNavAltMarkup' aria-expanded='false' aria-label='Toggle navigation')
             span.navbar-toggler-icon
         #navbarNavAltMarkup.collapse.navbar-collapse
-if(header != 'false')
+if(header != false)
     nav(aria-label='breadcrumb')
         .container
             ol.breadcrumb
-                a.li.breadcrumb-item.disabled(href = "/") Home
-                if (cardsOfCategories)
+                a.li.breadcrumb-item.text-dark(href = "/") Home
+                if cardsOfCategories
                     li.breadcrumb-item #{cardsOfCategories[0].parent_category_id}
-                else if (cardsOfProducts)
+                else if cardsOfProducts
                     li.breadcrumb-item #{cardsOfProducts[0].primary_category_id}
                 else
-                    a.li.breadcrumb-item.disabled(href = "/products/" + product[0].primary_category_id) #{product[0].primary_category_id} 
+                    a.li.breadcrumb-item.text-dark(href = "/products/" + product[0].primary_category_id) #{product[0].primary_category_id} 
                     li.breadcrumb-item #{product[0].name}
                 li.breadcrumb-item
