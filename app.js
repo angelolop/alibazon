@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const session = require('express-session');
 const routes1 = require('./routes/index.routes.js');
 const routes2 = require('./routes/authentication.routes.js');
+const routes3 = require('./routes/cart.routes.js')
 const YAML = require ('yamljs')
 const swaggerJsDocs = YAML.load('./alibazon.yaml')
 const swaggerUI = require('swagger-ui-express');
@@ -42,6 +43,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}))
 app.use(routes1);
 app.use(routes2);
+app.use(routes3);
 app.use(Sentry.Handlers.errorHandler()); //error handler necessary for Sentry
 
 app.set("view engine", "pug");

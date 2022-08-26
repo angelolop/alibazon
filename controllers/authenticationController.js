@@ -24,12 +24,10 @@ exports.registerCreate = async function (req, res, next){
                 email: req.body.email,
                 password: req.body.password  
                 })
-                .then(() => {
-                    console.log
-                    res.redirect("/");
-                }).catch((err) => {
-                    console.error(err);
+                .then((res) => {
+                    req.session.userId = res.data.token;
                 });
+                res.redirect('/')
         } else {
             var err = new Error('All files required.');
             err.status = 400;
@@ -48,10 +46,10 @@ exports.loginPost = async function (req, res, next) {
             email: req.body.email,
             password: req.body.password
             })
-            .then(() => {
-                req.session.userId = req.sessionID;
-                res.redirect('/');
+            .then((res) => {
+                req.session.userId = res.data.token;
             });
+            res.redirect('/')
     } else {
         var err = new Error('Email and password are required.');
         err.status = 401;
@@ -60,19 +58,11 @@ exports.loginPost = async function (req, res, next) {
 }
 
 exports.logout = function(req, res, next) {
-    if (req.session) {
-        req.session.destroy (() => {
-             res.redirect("/");
-        })
-    }
+    req.session.destroy (() => {
+        res.redirect("/");
+    })
 }
 
 exports.profile = function(req, res, next) {
-    if (req.session && req.session.userId) {
         res.render('profile', { header: false})
-    } else {
-        let err = new Error ("You must be logged in to view this page.");
-        err.status = 401;
-        return next (err);
-    }
 }
