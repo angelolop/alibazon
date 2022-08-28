@@ -1,0 +1,24 @@
+mixin cardsFromCart(purchase)
+    tbody
+        tr
+        td $#{purchase.variant.price}
+        td #{purchase.variant.variation_values.color}
+        if purchase.variant.variation_values.size === undefined 
+            td Indisponible
+        else 
+            td #{purchase.variant.variation_values.size}
+        td #{purchase.productId}
+        td #{purchase.quantity}
+        td
+            form(method='POST' action='/cart?_method=delete')
+                input.form-control(type = "hidden" name='productId' value = purchase.productId)
+                input.form-control(type = "hidden" name='variantId' value = purchase.variant.product_id)
+                button.btn-danger.rounded-pill(type='submit') Delete
+        td
+            form(method='POST' action='/cart/changeQuantity')
+                .input-group
+                    input.form-control(type = "hidden" name='productId' value = purchase.productId)
+                    input.form-control(type = "hidden" name='variantId' value = purchase.variant.product_id)
+                    input.form-control.form-control-sm.col-2.rounded-pill(type = 'number' name='quantity')
+                    button.btn-danger.rounded-pill(type='submit') Quantity
+                    

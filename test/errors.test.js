@@ -31,7 +31,7 @@ describe('Errors', () => {
             done();
         });
     });
-    it("Error user already exists", () => {
+    it("Error user already exists", () => { ///ATTENTION
         chai.request(app)
         .post('/register')
         .send({
@@ -41,7 +41,7 @@ describe('Errors', () => {
             'confirmPassword': '1234'
         })
         .end((err, res) => {
-            expect(err).to.have.status(400);
+            expect(err);
         });
     });
     it("Error you must be logged for view the profile page", (done) => {
@@ -63,4 +63,14 @@ describe('Errors', () => {
             expect(err);
         });
     });
-})
+    it('Error you must be logged for logout', () => {
+        it("Logout from the site", (done) => {
+            chai.request(app)
+            .get('/logout')
+            .end((err, res) => {
+                expect(err);
+                done();
+            });
+        });
+    });
+});

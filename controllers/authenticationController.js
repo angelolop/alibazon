@@ -64,5 +64,5 @@ exports.logout = function(req, res, next) {
 }
 
 exports.profile = function(req, res, next) {
-        res.render('profile', { header: false})
+    res.render('profile', { header: false})
 }

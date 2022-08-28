@@ -8,6 +8,6 @@ router.get("/category/:id", indexController.categories);
 
 router.get("/products/:id", indexController.products);
 
-router.get("/product/:id", indexController.singleProduct)
+router.get("/product/:id", indexController.singleProduct);
     
 module.exports = router;

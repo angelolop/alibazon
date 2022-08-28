@@ -10,7 +10,7 @@ describe('Register', () => {
         chai.request(app)
         .get('/register')
         .end((err, res) => {
-            expect(res);
+            expect(res).to.have.status(200);
         });
     });
     it("Create an account", () => {
@@ -18,7 +18,7 @@ describe('Register', () => {
         .post('/register')
         .send({
             'name': 'access',
-            'email': 'access31@gmail.com',
+            'email': 'access83@gmail.com',
             'password': '1234',
             'confirmPassword': '1234'
         })
@@ -47,17 +47,6 @@ describe('Login', () => {
         })
         .end((err, res) => {
             expect(res).to.have.status(200);
-        });
-    });
-});
-
-describe('Logout', () => {
-    it("Logout from the site", (done) => {
-        chai.request(app)
-        .get('/logout')
-        .end((err, res) => {
-            expect(res).to.have.status(200);
-            done();
         });
     });
 });
