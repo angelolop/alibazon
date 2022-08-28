@@ -1,43 +1,53 @@
-const api = "https://backend-academy-osf.herokuapp.com/api/";
-const secretKey = "$2a$08$p3my8MGizWp3L8f6sn0PCO2c4mLv.mewFcpcfy8pGxHFi0iT4cUX.";
-const axios = require("axios");
+const config = require('../config');
 
-exports.redirect = async (req, res) => {
-        res.redirect("/category/womens")
-    };
-
-exports.categories = async (req, res) => {
-    let reqId = req.params.id
-    const query = await axios.get(api + 'categories/parent/' + reqId, {// Put men or women depending on the request
+let param = {
     params: {
-        secretKey: secretKey
-        }
-    });
-    const jumbotronDescription = await axios.get(api + 'categories/' + reqId, { // breadcrumbs
-    params: {
-        secretKey: secretKey
-        }   
-    });
-    if (reqId.length > 18 || reqId === "womens-outfits") {
-        res.redirect("/products/" + reqId);
-    };
-    res.render("categories", { cardsOfCategories: query.data, jumbotron: true, jumbotronDescription: jumbotronDescription.data});
+        secretKey: config.secretKey
+    }
 };
 
-exports.products = async (req, res) =>  {//Route for the especified product
-    const query = await axios.get(api + 'products/product_search?page=1&primary_category_id=' + req.params.id, {
-    params: {
-        secretKey: secretKey
-        }
-    });
-    res.render("products", { cardsOfProducts: query.data, cardsOfCategories: false, jumbotron: false});
+exports.redirect = async (req, res) => {
+    try {
+        res.redirect("/category/womens")
+    } catch (error) {
+        console.log('error')
+    };
+};
+
+exports.categories = async (req, res) => {
+    let reqId = req.params.id;
+
+    try {
+        const query = await config.api.get('categories/parent/' + reqId, param);
+        const jumbotronDescription = await config.api.get('categories/' + reqId, param);
+
+        if (reqId.length > 18 || reqId === "womens-outfits") {
+            res.redirect("/products/" + reqId);
+        };
+        res.render("categories", { 
+            cardsOfCategories: query.data, jumbotron: true, jumbotronDescription: jumbotronDescription.data
+        });
+    } catch (error) {
+        res.render('error', {error: error, header: false});
+    };
+};
+
+exports.products = async (req, res) =>  {
+    try {
+        const query = await config.api.get('products/product_search?page=1&primary_category_id=' + req.params.id, param);
+
+        res.render("products", { cardsOfProducts: query.data, cardsOfCategories: false, jumbotron: false});
+    } catch (error) {
+        console.log(error)
+    };
 };
 
 exports.singleProduct = async (req, res) => { 
-    const query = await axios.get(api + "products/product_search?id=" + req.params.id, {
-    params: {
-        secretKey: secretKey
-        }
-    });
-    res.render("singleProduct", { product: query.data, jumbotron: false});
+    try {
+        const query = await config.api.get("products/product_search?id=" + req.params.id, param);
+
+        res.render("singleProduct", { product: query.data, jumbotron: false});
+    } catch (error) {
+        console.log(error)
+    };
 };

@@ -1,13 +1,15 @@
-const api = "https://backend-academy-osf.herokuapp.com/api/";
-const secretKey = "$2a$08$p3my8MGizWp3L8f6sn0PCO2c4mLv.mewFcpcfy8pGxHFi0iT4cUX.";
-const axios = require("axios");
+const config = require('../config');
 
 exports.registerPage = function (req,res) {
-    return res.render('register', {header: false, jumbotron: false});
+    try {
+        return res.render('register', {header: false, jumbotron: false})
+    } catch (error) {
+        res.render('error', {error: error, header: false});
+    };
 };
 
 exports.registerCreate = async function (req, res, next){
-    if (req.body.name &&
+        if (req.body.name &&
         req.body.email &&
         req.body.password &&
         req.body.confirmPassword) {
@@ -16,53 +18,73 @@ exports.registerCreate = async function (req, res, next){
                 var err = new Error ('Password do not match.');
                 err.status = 400;
                 return next(err)
-            }
+            } try {
             //use post method to insert document into api
-            await axios.post(api + '/auth/signup', {
-                secretKey: secretKey,
-                name: req.body.name, 
-                email: req.body.email,
-                password: req.body.password  
-                })
-                .then((res) => {
-                    req.session.userId = res.data.token;
-                });
-                res.redirect('/')
-        } else {
+                await config.api.post('/auth/signup', {
+                    secretKey: config.secretKey,
+                    name: req.body.name, 
+                    email: req.body.email,
+                    password: req.body.password  
+                    })
+                    .then((res) => {
+                        req.session.userId = res.data.token
+                    });
+                    res.redirect('/');
+            } catch (error) {
+                res.render('error', {error: error, header: false});
+            }
+        }
+        else {
             var err = new Error('All files required.');
             err.status = 400;
             return next (err);
-        }
-}
+        };
+}; 
 
 exports.loginPage = function (req, res, next) {
-    return res.render ('login', { header: false});
-}
+    try {
+        return res.render ('login', { header: false });
+    } catch (error) {
+        res.render('error', {error: error, header: false});
+    };
+};
 
 exports.loginPost = async function (req, res, next) {
     if (req.body.email && req.body.password) {
-        await axios.post(api + '/auth/signin', {
-            secretKey: secretKey,
-            email: req.body.email,
-            password: req.body.password
-            })
-            .then((res) => {
-                req.session.userId = res.data.token;
-            });
-            res.redirect('/')
+        try {
+            await config.api.post('/auth/signin', {
+                secretKey: config.secretKey,
+                email: req.body.email,
+                password: req.body.password
+                })
+                .then((res)=> {
+                    req.session.userId = res.data.token
+                });
+                res.redirect('/');
+            } catch (error) {
+                res.render('error', {error: error, header: false});
+            }
     } else {
         var err = new Error('Email and password are required.');
         err.status = 401;
-        return next(err)
-    }
-}
+        return next(err);
+    };
+};
 
 exports.logout = function(req, res, next) {
-    req.session.destroy (() => {
-        res.redirect("/");
-    })
-}
+    try{   
+        req.session.destroy (() => {
+            res.redirect("/");
+        })
+    } catch (error) {
+        res.render('error', {error: error, header: false});
+    };
+};
 
 exports.profile = function(req, res, next) {
-    res.render('profile', { header: false})
-}
+    try {
+        res.render('profile', { header: false})
+    } catch (error) {
+        res.render('error', {error: error, header: false});
+    };
+};
