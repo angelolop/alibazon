@@ -1,11 +1,5 @@
 const config = require('../config');
 
-let param = {
-    params: {
-        secretKey: config.secretKey
-    }
-};
-
 exports.redirect = async (req, res) => {
     try {
         res.redirect("/category/womens")
@@ -18,8 +12,8 @@ exports.categories = async (req, res) => {
     let reqId = req.params.id;
 
     try {
-        const query = await config.api.get('categories/parent/' + reqId, param);
-        const jumbotronDescription = await config.api.get('categories/' + reqId, param);
+        const query = await config.api.get('categories/parent/' + reqId, config.param);
+        const jumbotronDescription = await config.api.get('categories/' + reqId, config.param);
 
         if (reqId.length > 18 || reqId === "womens-outfits") {
             res.redirect("/products/" + reqId);
@@ -34,9 +28,9 @@ exports.categories = async (req, res) => {
 
 exports.products = async (req, res) =>  {
     try {
-        const query = await config.api.get('products/product_search?page=1&primary_category_id=' + req.params.id, param);
+        const query = await config.api.get('products/product_search?page=1&primary_category_id=' + req.params.id, config.param);
 
-        res.render("products", { cardsOfProducts: query.data, cardsOfCategories: false, jumbotron: false});
+        res.render("products", {cardsOfProducts: query.data, cardsOfCategories: false, jumbotron: false});
     } catch (error) {
         console.log(error)
     };
@@ -44,9 +38,9 @@ exports.products = async (req, res) =>  {
 
 exports.singleProduct = async (req, res) => { 
     try {
-        const query = await config.api.get("products/product_search?id=" + req.params.id, param);
+        const query = await config.api.get("products/product_search?id=" + req.params.id, config.param);
 
-        res.render("singleProduct", { product: query.data, jumbotron: false});
+        res.render("singleProduct", {product: query.data, jumbotron: false});
     } catch (error) {
         console.log(error)
     };

@@ -20,22 +20,19 @@ exports.registerCreate = async function (req, res, next){
                 return next(err)
             } try {
             //use post method to insert document into api
-                await config.api.post('/auth/signup', {
-                    secretKey: config.secretKey,
-                    name: req.body.name, 
-                    email: req.body.email,
-                    password: req.body.password  
+                let register = await config.api.post('/auth/signup', {
+                        secretKey: config.secretKey,
+                        name: req.body.name, 
+                        email: req.body.email,
+                        password: req.body.password  
                     })
-                    .then((res) => {
-                        req.session.userId = res.data.token
-                    });
+                    req.session.userId = register.data.token
                     res.redirect('/');
             } catch (error) {
                 res.render('error', {error: error, header: false});
             }
-        }
-        else {
-            var err = new Error('All files required.');
+        } else {
+            let err = new Error('All files required.');
             err.status = 400;
             return next (err);
         };
@@ -52,26 +49,24 @@ exports.loginPage = function (req, res, next) {
 exports.loginPost = async function (req, res, next) {
     if (req.body.email && req.body.password) {
         try {
-            await config.api.post('/auth/signin', {
-                secretKey: config.secretKey,
-                email: req.body.email,
-                password: req.body.password
+            let login = await config.api.post('/auth/signin', {
+                    secretKey: config.secretKey,
+                    email: req.body.email,
+                    password: req.body.password
                 })
-                .then((res)=> {
-                    req.session.userId = res.data.token
-                });
+                req.session.userId = login.data.token;
                 res.redirect('/');
-            } catch (error) {
-                res.render('error', {error: error, header: false});
-            }
+        } catch (error) {
+            res.render('error', {error: error, header: false});
+        }
     } else {
-        var err = new Error('Email and password are required.');
+        let err = new Error('Email and password are required.');
         err.status = 401;
         return next(err);
     };
 };
 
-exports.logout = function(req, res, next) {
+exports.logout = function (req, res, next) {
     try{   
         req.session.destroy (() => {
             res.redirect("/");
@@ -81,7 +76,7 @@ exports.logout = function(req, res, next) {
     };
 };
 
-exports.profile = function(req, res, next) {
+exports.profile = function (req, res, next) {
     try {
         res.render('profile', { header: false})
     } catch (error) {
