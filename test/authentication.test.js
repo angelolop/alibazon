@@ -18,7 +18,7 @@ describe('Register', () => {
         .post('/register')
         .send({
             'name': 'access',
-            'email': 'access109@gmail.com',
+            'email': 'access148@gmail.com',
             'password': '1234',
             'confirmPassword': '1234'
         })

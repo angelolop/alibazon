@@ -11,9 +11,13 @@ block content
                     .mt-2.align-items-center.d-flex
                         form(method='POST' action='/cart')
                             input.form-control(type = "hidden" name='productId' value = product[0].id)
-                            input.form-control(type = "hidden" name='variantId' value = product[0].variants[0].product_id)
-                            input.form-control(type = "number" name='quantity' placeholder="Quantity" required)
-                            button.btn-dark.rounded-pill.mt-4(type='submit') Buy product
-                            sp.mark.ml-4 Price: $#{product[0].price}
+                            if product[0].primary_category_id === 'womens-outfits'
+                                p Product unavailable, check later!
+                                p.mark.py-1.d-flex.justify-content-center Price: Unavailable
+                            else
+                                input.form-control(type = "hidden" name='variantId' value = product[0].variants[0].product_id)
+                                input.form-control(type = "number" name='quantity' placeholder="Quantity" required)
+                                button.btn-dark.rounded-pill.mt-4.py-1(type='submit') Buy product
+                                sp.mark.ml-4 Price: $#{product[0].price}
  
                     

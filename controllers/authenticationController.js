@@ -25,7 +25,7 @@ exports.registerCreate = async function (req, res, next){
                         name: req.body.name, 
                         email: req.body.email,
                         password: req.body.password  
-                    })
+                    });
                     req.session.userId = register.data.token
                     res.redirect('/');
             } catch (error) {

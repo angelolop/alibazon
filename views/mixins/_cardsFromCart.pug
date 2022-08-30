@@ -4,7 +4,7 @@ mixin cardsFromCart(purchase)
         td $#{purchase.variant.price}
         td #{purchase.variant.variation_values.color}
         if purchase.variant.variation_values.size === undefined 
-            td Indisponible
+            td Unavailable
         else 
             td #{purchase.variant.variation_values.size}
         td #{purchase.productId}
@@ -20,5 +20,5 @@ mixin cardsFromCart(purchase)
                     input.form-control(type = "hidden" name='productId' value = purchase.productId)
                     input.form-control(type = "hidden" name='variantId' value = purchase.variant.product_id)
                     input.form-control.form-control-sm.col-2.rounded-pill(type = 'number' name='quantity')
-                    button.btn-danger.rounded-pill(type='submit') Quantity
+                    button.btn-warning.rounded-pill(type='submit') Change
                     
