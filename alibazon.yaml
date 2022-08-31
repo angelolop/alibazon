@@ -17,7 +17,7 @@ schemes: [http, https]
 paths:
     /:
         get:
-            summary: Returns the page of the men's category
+            summary: Returns the page of the women's category
             description: Men's category of Alibazon
             responses:
                 200:
@@ -90,7 +90,7 @@ paths:
                         content-type: text/html
 
         post:
-            summary: Posting an user data
+            summary: Creating an user
             consumes:
               - application/x-www-form-urlencoded
             parameters:
@@ -129,7 +129,7 @@ paths:
                         content-type: text/html
 
         post:
-            summary: Creating an user account
+            summary: Entering an user account
             consumes:
               - application/x-www-form-urlencoded
             parameters:

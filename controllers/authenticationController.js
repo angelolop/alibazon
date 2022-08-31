@@ -4,7 +4,7 @@ exports.registerPage = function (req,res) {
     try {
         return res.render('register', {header: false, jumbotron: false})
     } catch (error) {
-        let err = new Error ('Tente novamente')
+        let err = new Error ('Try again')
         res.render('error', {err, header: false});
     };
 };
@@ -29,7 +29,7 @@ exports.registerCreate = async function (req, res, next){
                 req.session.userId = register.data.token
                 res.redirect('/');
             } catch (error) {
-                let err = new Error ('Tente novamente')
+                let err = new Error ('Try again')
                 res.render('error', {err, header: false});
             };
     } else {
@@ -42,7 +42,7 @@ exports.loginPage = function (req, res, next) {
     try {
         return res.render ('login', { header: false });
     } catch (error) {
-        let err = new Error ('Tente novamente')
+        let err = new Error ('Try again')
         res.render('error', {err, header: false});
     };
 };
@@ -58,7 +58,7 @@ exports.loginPost = async function (req, res, next) {
                 req.session.userId = login.data.token;
                 res.redirect('/');
         } catch (error) {
-            let err = new Error ('Tente novamente')
+            let err = new Error ('Try again')
             res.render('error', {err, header: false});
         }
     } else {
@@ -73,7 +73,7 @@ exports.logout = function (req, res, next) {
             res.redirect('/');
         })
     } catch (error) {
-        let err = new Error ('Tente novamente')
+        let err = new Error ('Try again')
         res.render('error', {err, header: false});
     };
 };
@@ -82,7 +82,7 @@ exports.profile = function (req, res, next) {
     try {
         res.render('profile', { header: false})
     } catch (error) {
-        let err = new Error ('Tente novamente')
+        let err = new Error ('Try again')
         res.render('error', {err, header: false});
     };
 };

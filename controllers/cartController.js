@@ -24,10 +24,10 @@ exports.addItemCart = async (req, res, next) => {
             variantId: req.body.variantId,
             quantity: req.body.quantity
         }, 
-        { headers: { 'Authorization': `Bearer ${req.session.userId}`} }
-        ,res.redirect('back'));
+        { headers: { 'Authorization': `Bearer ${req.session.userId}`}});
+        res.redirect('/cart')
     } catch (error) {
-        let err = new Error ('Tente novamente')
+        let err = new Error ('Try again')
         res.render('error', {err, header: false});
     };
 };
@@ -43,7 +43,7 @@ exports.changeQuantityItemCart = async (req, res, next) => {
         { headers: {'Authorization': `Bearer ${req.session.userId}`}})
         res.redirect('back')
     } catch (error) {
-        let err = new Error ('Tente novamente')
+        let err = new Error ('Try again')
         res.render('error', {err, header: false});
     };
 };
@@ -60,7 +60,7 @@ exports.deleteItemCart = async (req, res, next) => {
         })
         res.redirect('back')
     } catch (error) {
-        let err = new Error ('Tente novamente')
+        let err = new Error ('Try again')
         res.render('error', {err, header: false});
     };
 };

@@ -4,7 +4,7 @@ exports.redirect = async (req, res) => {
     try {
         res.redirect('/category/womens')
     } catch (error) {
-        let err = new Error ('Tente novamente')
+        let err = new Error ('Try again')
         res.render('error', {err, header: false})
     };
 };
@@ -23,7 +23,7 @@ exports.categories = async (req, res) => {
             cardsOfCategories: query.data, jumbotron: true, jumbotronDescription: jumbotronDescription.data
         });
     } catch (error) {
-        let err = new Error ('Tente novamente')
+        let err = new Error ('Try again')
         res.render('error', {err, header: false});
     };
 };
@@ -34,7 +34,7 @@ exports.products = async (req, res) =>  {
 
         res.render('products', {cardsOfProducts: query.data, jumbotron: false});
     } catch (error) {
-        let err = new Error ('Tente novamente')
+        let err = new Error ('Try again')
         res.render('error', {err, header: false})
     };
 };
@@ -45,7 +45,7 @@ exports.singleProduct = async (req, res) => {
 
         res.render('singleProduct', {product: query.data, jumbotron: false});
     } catch (error) {
-        let err = new Error ('Tente novamente')
+        let err = new Error ('Try again')
         res.render('error', {err, header: false})
     };
 };

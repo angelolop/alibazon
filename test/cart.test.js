@@ -13,6 +13,18 @@ describe('Cart', () => {
             expect(res).to.have.status(200);
         });
     });
+    it('Unathorize add product', () => {
+        chai.request(app)
+        .post('/cart')
+        .send({
+            'productId': '86736845',
+            'variantId': '883360544250',
+            'quantity': '4'
+        })
+        .end((error, res) => {
+            expect(error)
+        });
+    });
     it('Unathorized change quantity', () => {
         chai.request(app)
         .post('/cart/changeQuantity')
