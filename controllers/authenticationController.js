@@ -16,7 +16,7 @@ exports.registerCreate = async function (req, res, next){
     req.body.confirmPassword) {
         //confirm that user typed same password twice
         if (req.body.password !== req.body.confirmPassword) {
-            let err = new Error ('Password do not match.');
+            let err = new Error ('Password do not match. Use another email and try again');
             res.render('error', {err, header: false});
         } try {
         //use post method to insert document into api
