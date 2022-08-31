@@ -1,6 +1,6 @@
-const app = require("../app");
-const chai = require("chai");
-const chaiHttp = require("chai-http");
+const app = require('../app');
+const chai = require('chai');
+const chaiHttp = require('chai-http');
 const { expect } = chai;
 
 chai.use(chaiHttp);
@@ -10,31 +10,19 @@ describe('Cart', () => {
         chai.request(app)
         .get('/cart')
         .end((err, res) => {
-            expect(res).to.have.status(401);
+            expect(res).to.have.status(200);
         });
     });
-    it('Unathorized Buy product', () => {
-        chai.request(app)
-        .post('/cart')
-        .send({
-            'productId': '86736845',
-            'variantId': '883360544250',
-            'quantity': '1'
-        })
-        .end((err, res) => {
-            expect(err);
-        })
-    })
     it('Unathorized change quantity', () => {
         chai.request(app)
-        .post('/cart/addItem')
+        .post('/cart/changeQuantity')
         .send({
             'productId': '86736845',
             'variantId': '883360544250',
             'quantity': '4'
         })
-        .end((err, res) => {
-            expect(err);
+        .end((error, res) => {
+            expect(error);
         })
     })
     it('Unathorized delete product', () => {
@@ -45,8 +33,8 @@ describe('Cart', () => {
             'variantId': '883360544250',
             'quantity': '4'
         })
-        .end((err, res) => {
-            expect(err);
+        .end((error, res) => {
+            expect(error);
         })
     })
 });

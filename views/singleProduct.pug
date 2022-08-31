@@ -14,10 +14,12 @@ block content
                             if product[0].primary_category_id === 'womens-outfits'
                                 p Product unavailable, check later!
                                 p.mark.py-1.d-flex.justify-content-center Price: Unavailable
+                            else if !currentUser
+                                input.form-control(type = "hidden" name='variantId' value = product[0].variants[0].product_id)
+                                ins You must be logged to buy a product
+                                p.mark.mt-4.d-flex.justify-content-center Price: $#{product[0].price}
                             else
                                 input.form-control(type = "hidden" name='variantId' value = product[0].variants[0].product_id)
-                                input.form-control(type = "number" name='quantity' placeholder="Quantity" required)
-                                button.btn-dark.rounded-pill.mt-4.py-1(type='submit') Buy product
+                                input.form-control(type = "number" name='quantity' min='1' placeholder="Quantity" required)
+                                button.btn-dark.rounded-pill.mt-4.py-1(href= '/cart' type='submit' ) Add to cart 
                                 sp.mark.ml-4 Price: $#{product[0].price}
- 
-                    

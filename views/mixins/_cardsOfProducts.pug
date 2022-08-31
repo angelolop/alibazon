@@ -8,5 +8,5 @@ mixin cardsOfProducts(list)
                 .body-right
                     p #{list.short_description}
                 .d-flex.justify-content-between.mt-5
-                    p Price: $#{list.price}
-                    a.btn.btn-dark.mb-4.rounded-pill(href="/product/" + list.id) More info
+                    p.mark.py-2.mt-2 Price: $#{list.price}
+                    a.btn.btn-dark.mt-2.mb-3.rounded-pill(href="/product/" + list.id) More info

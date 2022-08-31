@@ -5,15 +5,14 @@ exports.cartPage = async (req, res, next) =>  {
     try {
         const query = await config.api.get ('/cart', {
             headers: {
-                "Authorization": `Bearer ${req.session.userId}`
+                'Authorization': `Bearer ${req.session.userId}`
             }, 
-            params: {
-                secretKey: config.secretKey
-            }
+            params: { secretKey: config.secretKey }
         });
-        res.render("cart", {cardsFromCart: query.data.items, header: false})
+        res.render('cart', {cardsFromCart: query.data.items, header: false})
     } catch (error) {
-        res.render('error', {error: error, header: false});
+        let err = new Error ('You must add something to cart to view this page');
+        res.render('error', {err, header: false});
     };
 };
 
@@ -24,12 +23,12 @@ exports.addItemCart = async (req, res, next) => {
             productId: req.body.productId,
             variantId: req.body.variantId,
             quantity: req.body.quantity
-        },{
-            headers: { "Authorization": `Bearer ${req.session.userId}`}
         }, 
-        res.redirect("/"));
+        { headers: { 'Authorization': `Bearer ${req.session.userId}`} }
+        ,res.redirect('back'));
     } catch (error) {
-        res.render('error', {error: error, header: false});
+        let err = new Error ('Tente novamente')
+        res.render('error', {err, header: false});
     };
 };
 
@@ -40,28 +39,28 @@ exports.changeQuantityItemCart = async (req, res, next) => {
             productId: req.body.productId,
             variantId: req.body.variantId,
             quantity: req.body.quantity
-        },{
-            headers: {"Authorization": `Bearer ${req.session.userId}`}
         }, 
-        res.redirect("/"))
+        { headers: {'Authorization': `Bearer ${req.session.userId}`}})
+        res.redirect('back')
     } catch (error) {
-        res.render('error', {error: error, header: false});
+        let err = new Error ('Tente novamente')
+        res.render('error', {err, header: false});
     };
 };
 
 exports.deleteItemCart = async (req, res, next) => {
     try {
         await config.api.delete ('/cart/removeItem', {
-            headers: {"Authorization": `Bearer ${req.session.userId}`},
+            headers: {'Authorization': `Bearer ${req.session.userId}`},
             data: {
                 secretKey: config.secretKey,
                 productId: req.body.productId,
                 variantId: req.body.variantId
             }
-        }, 
-        res.redirect("/"))
+        })
+        res.redirect('back')
     } catch (error) {
-        res.render('error', {error: error, header: false});
+        let err = new Error ('Tente novamente')
+        res.render('error', {err, header: false});
     };
 };
-

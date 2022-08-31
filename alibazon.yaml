@@ -7,9 +7,9 @@ info:
         email: angelo.lop.alv@gmail.com 
     license:
         name: Apache 2.0
-        url: "http://apache.org/"
+        url: 'http://apache.org/'
     servers:
-        -url: "http://localhost:3000/"
+        -url: 'http://localhost:3000/'
         description: This is my local server
 
 schemes: [http, https]
@@ -28,12 +28,12 @@ paths:
     /category/{categoryId}:
         get:
             summary: Returns the page of the category selected
-            description: Category of clothes chosen from Alibazon
+            description: Clothing categories chosen from Alibazon
             parameters:
               - name: categoryId
                 in: path
                 required: true
-                description: The category of the clothes chosen
+                description: The clothing category chosen
                 schema:
                     type: string
                     minimum: 1        
@@ -46,7 +46,7 @@ paths:
     /products/{subcategoryId}:
         get:
             summary: Return the product catalog of the subcategory selected
-            description: Catalog of products
+            description: Product catalogs
             parameters:
               - name: subcategoryId
                 in: path
@@ -63,13 +63,13 @@ paths:
 
     /product/{productId}:
         get:
-            summary: Return a unique product of the catalog of products chosen
+            summary: Returns a page of the product chosen from the categories
             description: A unique product
             parameters:
               - name: productId
                 in: path
                 required: true
-                description: The specified product of the products catalog
+                description: The specified product of a product catalog
                 schema:
                     type: string
                     minimum: 1
@@ -98,21 +98,25 @@ paths:
                 name: name
                 type: string
                 description: User's name
+                required: true
               - in: formData
                 name: email
                 type: string
                 description: User's email
+                required: true
               - in: formData
                 name: password
                 type: string
                 description: User's password
+                required: true
               - in: formData
                 name: confirmPassword
                 type: string
                 description: User's repeat password
+                required: true
             responses:
                 200:
-                    description: OK
+                    description: Success
 
     /login:
         get:
@@ -123,8 +127,9 @@ paths:
                     description: Success
                     schema:
                         content-type: text/html
+
         post:
-            summary: Entering an user account
+            summary: Creating an user account
             consumes:
               - application/x-www-form-urlencoded
             parameters:
@@ -132,13 +137,105 @@ paths:
                 name: email
                 type: string
                 description: User's email
+                required: true
               - in: formData
                 name: password
                 type: string
                 description: User's password
+                required: true
             responses:
                 200:
-                    description: OK
+                    description: Success
+
     /logout:
         get:
-            summary:
+            summary: Logout an user
+            responses:
+                200:
+                    description: Success
+                401:
+                    description: Unathorized, needs to login
+    
+    /cart:
+        post:
+            summary: Add a product to cart
+            consumes:
+            - application/x-www-form-urlencoded
+            parameters:
+              - in: formData
+                name: productId
+                type: string
+                description: Product id of the product wanted
+                required: true
+              - in: formData
+                name: variantId
+                type: string
+                description: Variant id of the product wanted
+                required: true
+              - in: quantity
+                name: quantity
+                type: number
+                description: Quantity of the product wanted
+                required: true
+            responses:
+                200:
+                    description: Success
+                401:
+                    description: Unauthorized, needs to login
+        get:
+            summary: Returns the page of the cart's category
+            description: Page of the cart
+            responses:
+                200:
+                    description: Success
+                401:
+                    description: Unauthorized, needs to login
+                    schema:
+                        content-type: text/html
+        delete:
+            summary: Delete a product in a cart
+            consumes:
+              - application/x-www-form-urlencoded
+            parameters:
+              - in: formData
+                name: productId
+                type: string
+                description: Id of the product to be deleted
+                required: true 
+              - in: formData
+                name: variantId
+                type: string
+                description: Id variant to be deleted
+                required: true
+            responses:
+                200: 
+                    description: Success
+                401:
+                    description: Unauthorized, needs to login
+    
+    /cart/changeQuantity:
+        get:
+            summary: Change the quantity of a product
+            consumes:
+              - application/x-www-form-urlencoded
+            parameters:
+              - in: formData
+                name: productId
+                type: string
+                description: Id of the product to be modified
+                required: true
+              - in: formData
+                name: variantId
+                type: string
+                description: Variant id of the product to be modified
+                required: true
+              - in: quantity
+                name: password
+                type: number
+                description: Quantity of the product to be replaced
+                required: true
+            responses:
+                200:
+                    description: Success
+                401:
+                    description: Unauthorized, needs to login

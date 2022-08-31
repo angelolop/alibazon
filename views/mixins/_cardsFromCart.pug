@@ -19,6 +19,5 @@ mixin cardsFromCart(purchase)
                 .input-group
                     input.form-control(type = "hidden" name='productId' value = purchase.productId)
                     input.form-control(type = "hidden" name='variantId' value = purchase.variant.product_id)
-                    input.form-control.form-control-sm.col-2.rounded-pill(type = 'number' name='quantity')
+                    input.form-control.form-control-sm.col-2.rounded-pill(type = 'number' min='0' name='quantity')
                     button.btn-warning.rounded-pill(type='submit') Change
-                    

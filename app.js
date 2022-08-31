@@ -31,7 +31,9 @@ app.use(function (req, res, next) {     //make user ID available in templates
 });
 
 app.use(methodOverride('_method'));
-require("./routes/routes")(app);
+
+require("./routes/startup.routes")(app);
+
 app.use(Sentry.Handlers.requestHandler()); //Handlers for sentry (error tracking)
 app.use(Sentry.Handlers.tracingHandler()); //Handlers for sentry (error tracking)
 app.use(express.static('public'));
