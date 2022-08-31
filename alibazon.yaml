@@ -18,7 +18,7 @@ paths:
     /:
         get:
             summary: Returns the page of the women's category
-            description: Men's category of Alibazon
+            description: Women's category of Alibazon
             responses:
                 200:
                     description: Success
