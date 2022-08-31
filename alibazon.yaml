@@ -109,11 +109,6 @@ paths:
                 type: string
                 description: User's password
                 required: true
-              - in: formData
-                name: confirmPassword
-                type: string
-                description: User's repeat password
-                required: true
             responses:
                 200:
                     description: Success
@@ -230,7 +225,7 @@ paths:
                 description: Variant id of the product to be modified
                 required: true
               - in: quantity
-                name: password
+                name: quantity
                 type: number
                 description: Quantity of the product to be replaced
                 required: true

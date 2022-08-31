@@ -18,9 +18,8 @@ describe('Register', () => {
         .post('/register')
         .send({
             'name': 'access',
-            'email': 'access180@gmail.com',
+            'email': 'access182@gmail.com',
             'password': '1234',
-            'confirmPassword': '1234'
         })
         .end((err, res) => {
             expect(res).to.have.status(200);
@@ -37,18 +36,6 @@ describe('Register', () => {
             expect(error);
         });
     });
-    it('Error passowords do not match', () => {
-        chai.request(app)
-        .post('/register')
-        .send({
-            'name': 'assess',
-            'email': 'assess2@gmail.com',
-            'password': '1234'
-        })
-        .end((error, res) => {
-            expect(error);
-        });
-    });
     it('Error user already exists', () => { 
         chai.request(app)
         .post('/register')
@@ -56,7 +43,6 @@ describe('Register', () => {
             'name': 'test',
             'email': 'test@gmail.com',
             'password': '1234',
-            'confirmPassword': '1234'
         })
         .end((error, res) => {
             expect(error);
@@ -79,7 +65,6 @@ describe('Login', () => {
             'name': 'mocha',
             'email': 'mocha@gmail.com',
             'password': '1234',
-            'confirmPassword': '1234'
         })
         .end((err, res) => {
             expect(res).to.have.status(200);
@@ -97,7 +82,6 @@ describe('Login', () => {
         .post('/login')
         .send({
             'name': 'test',
-            'confirmPassword': '1234'
         })
         .end((error, res) => {
             expect(error);

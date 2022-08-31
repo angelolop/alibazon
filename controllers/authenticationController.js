@@ -12,13 +12,8 @@ exports.registerPage = function (req,res) {
 exports.registerCreate = async function (req, res, next){
     if (req.body.name &&
     req.body.email &&
-    req.body.password &&
-    req.body.confirmPassword) {
-        //confirm that user typed same password twice
-        if (req.body.password !== req.body.confirmPassword) {
-            let err = new Error ('Password do not match. Use another email and try again');
-            res.render('error', {err, header: false});
-        } try {
+    req.body.password) {
+         try {
         //use post method to insert document into api
             let register = await config.api.post('/auth/signup', {
                     secretKey: config.secretKey,
